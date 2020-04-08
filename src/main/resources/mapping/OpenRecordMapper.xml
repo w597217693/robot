@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bigcat.app.dao.OpenRecordMapper">
+  <resultMap id="BaseResultMap" type="com.bigcat.app.pojo.OpenRecord">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="lottery_type" jdbcType="INTEGER" property="lotteryType" />
+    <result column="open_time" jdbcType="TIMESTAMP" property="openTime" />
+    <result column="result" jdbcType="VARCHAR" property="result" />
+    <result column="period" jdbcType="BIGINT" property="period" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="gameId" jdbcType="VARCHAR" property="gameid" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, lottery_type, open_time, result, period, status, gameId
+  </sql>
+  <select id="selectByExample" parameterType="com.bigcat.app.pojo.OpenRecordExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_open_record
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_open_record
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from t_open_record
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.bigcat.app.pojo.OpenRecordExample">
+    delete from t_open_record
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.bigcat.app.pojo.OpenRecord">
+    insert into t_open_record (id, lottery_type, open_time, 
+      result, period, status, 
+      gameId)
+    values (#{id,jdbcType=VARCHAR}, #{lotteryType,jdbcType=INTEGER}, #{openTime,jdbcType=TIMESTAMP}, 
+      #{result,jdbcType=VARCHAR}, #{period,jdbcType=BIGINT}, #{status,jdbcType=INTEGER}, 
+      #{gameid,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.bigcat.app.pojo.OpenRecord">
+    insert into t_open_record
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="lotteryType != null">
+        lottery_type,
+      </if>
+      <if test="openTime != null">
+        open_time,
+      </if>
+      <if test="result != null">
+        result,
+      </if>
+      <if test="period != null">
+        period,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="gameid != null">
+        gameId,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="lotteryType != null">
+        #{lotteryType,jdbcType=INTEGER},
+      </if>
+      <if test="openTime != null">
+        #{openTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="result != null">
+        #{result,jdbcType=VARCHAR},
+      </if>
+      <if test="period != null">
+        #{period,jdbcType=BIGINT},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="gameid != null">
+        #{gameid,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.bigcat.app.pojo.OpenRecordExample" resultType="java.lang.Long">
+    select count(*) from t_open_record
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update t_open_record
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.lotteryType != null">
+        lottery_type = #{record.lotteryType,jdbcType=INTEGER},
+      </if>
+      <if test="record.openTime != null">
+        open_time = #{record.openTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.result != null">
+        result = #{record.result,jdbcType=VARCHAR},
+      </if>
+      <if test="record.period != null">
+        period = #{record.period,jdbcType=BIGINT},
+      </if>
+      <if test="record.status != null">
+        status = #{record.status,jdbcType=INTEGER},
+      </if>
+      <if test="record.gameid != null">
+        gameId = #{record.gameid,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update t_open_record
+    set id = #{record.id,jdbcType=VARCHAR},
+      lottery_type = #{record.lotteryType,jdbcType=INTEGER},
+      open_time = #{record.openTime,jdbcType=TIMESTAMP},
+      result = #{record.result,jdbcType=VARCHAR},
+      period = #{record.period,jdbcType=BIGINT},
+      status = #{record.status,jdbcType=INTEGER},
+      gameId = #{record.gameid,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.bigcat.app.pojo.OpenRecord">
+    update t_open_record
+    <set>
+      <if test="lotteryType != null">
+        lottery_type = #{lotteryType,jdbcType=INTEGER},
+      </if>
+      <if test="openTime != null">
+        open_time = #{openTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="result != null">
+        result = #{result,jdbcType=VARCHAR},
+      </if>
+      <if test="period != null">
+        period = #{period,jdbcType=BIGINT},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="gameid != null">
+        gameId = #{gameid,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.bigcat.app.pojo.OpenRecord">
+    update t_open_record
+    set lottery_type = #{lotteryType,jdbcType=INTEGER},
+      open_time = #{openTime,jdbcType=TIMESTAMP},
+      result = #{result,jdbcType=VARCHAR},
+      period = #{period,jdbcType=BIGINT},
+      status = #{status,jdbcType=INTEGER},
+      gameId = #{gameid,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

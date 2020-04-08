@@ -1,0 +1,65 @@
+server:
+  port: 8081
+#  thrift:
+#    port: 8899 #监听的端口
+#    min-thread-pool: 100  #线程池最小线程数
+#    max-thread-pool: 1000 #线程池最大线程数
+
+
+spring:
+  datasource:
+    username: root
+    password: 123456
+    url: jdbc:mysql://127.0.0.1:3306/app?charset=utf8mb4&useSSL=false
+    driver-class-name: com.mysql.jdbc.Driver
+
+  activemq:
+    broker-url: tcp://103.217.252.134:61616
+    user: admin
+    password: admin
+    in-memory: false
+    packages:
+      trust-all: true
+
+  jms:
+    pub-sub-domain: true
+
+  thymeleaf:
+    prefix: classpath:/templates/
+    suffix: .html
+    enabled: true
+    encoding: UTF-8
+    mode: HTML5
+    cache: false
+
+#    schema: classpath:sql/robot.sql
+#    data: classpath:sql/robot-data.sql
+#    initialization-mode: always
+
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 5mb
+      max-request-size: 7mb
+      file-size-threshold: 2kb
+file:
+  upload-dir: ./uploads
+
+
+mybatis:
+  mapper-locations: classpath:mapping/*Mapper.xml
+  type-aliases-package: com.bigcat.app.pojo
+
+
+#schema:
+#  - classpath:sql/vslm.sql
+sql-script-encoding: utf-8
+platform: mysql
+initialization-mode: always
+
+#showSql
+logging:
+  level:
+    com:
+      example:
+        mapper : debug
